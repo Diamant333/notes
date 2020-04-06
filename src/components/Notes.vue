@@ -2,12 +2,22 @@
                  <div class="notes">
                    <div class="note" :class="[{ full: !grid }, note.impotCheck]" v-for="(note, index) in notes" :key="index">
                      <div class="note-header" :class="{ full: !grid }">
-                       <p>{{ note.title }}</p>
+
+                        <input type="text" 
+                        v-model="note.title" 
+                        v-if="note.editable"
+                        @keyup.enter= "note.editable=false; $emit('update')"
+                        @keyup.esc= "note.editable=false; $emit('update'); note.title=titletemp;"
+                        v-focus
+                        >
+                        <div v-else>
+                            <p @click="note.editable=true; titletemp=note.title;">{{ note.title }}</p>
+                        </div>
+                       
                        <p style="cursor: pointer;" @click="removeNote(index)">X</p>
                      </div>
                      <div class="note-body">
                        <p>{{ note.descr }}</p>
-                       <p>{{ note.impotCheck }}</p>
                        <span>{{ note.date }}</span>
                      </div>
                    </div>
@@ -25,17 +35,40 @@ export default {
             type: Boolean,
             required: true
         }
+       
+    },
+    data() {
+        return {
+            titletemp: '',
+            desctemp: ''
+        }
     },
     methods: {
         removeNote (index) {
             console.log(`Note id - ${index} removed`)
             this.$emit('remove', index)
+        },
+        editTitle (index) {
+           
+            //console.log (`${note.editable}`)
+            //this.$emit.editable = true
         }
+    },
+      directives: {
+    focus: {
+      inserted (el) {
+        el.focus()
+      }
     }
+  }
 }
 </script>
 
 <style lang="scss">
+
+.hide {
+    display: none;
+}
 
 .notes {
     display: flex;

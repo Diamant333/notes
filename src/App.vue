@@ -47,37 +47,40 @@ export default {
     search
   },
   data () {
-    return  {
+    return {
       title: 'Notes App',
       search: '',
-        message: null,
-        grid: true,
-        note: {
-          title: '',
-          descr: '',
-          impotCheck: '',
-        },
-        notes: [{
-            title: 'First Note',
-            descr: 'Discription for First notes',
-            impotCheck: 'normal',
-            date: new Date(Date.now()).toLocaleString()
-          },
-          {
-            title: 'Second Note',
-            descr: 'Discription for Second notes',
-            impotCheck: 'important',
-            date: new Date(Date.now()).toLocaleString()
-          },
-          {
-            title: 'Third Note',
-            descr: 'Discription for Third notes',
-            impotCheck: 'v-important',
-            date: new Date(Date.now()).toLocaleString()
-          },
-        ]
-      }
+      message: null,
+      grid: true,
+      note: {
+        title: '',
+        descr: '',
+        impotCheck: '',
       },
+      notes: [{
+          title: 'First Note',
+          descr: 'Discription for First notes',
+          impotCheck: 'normal',
+          editable: false,
+          date: new Date(Date.now()).toLocaleString()
+        },
+        {
+          title: 'Second Note',
+          descr: 'Discription for Second notes',
+          impotCheck: 'important',
+          editable: false,
+          date: new Date(Date.now()).toLocaleString()
+        },
+        {
+          title: 'Third Note',
+          descr: 'Discription for Third notes',
+          impotCheck: 'v-important',
+          editable: false,
+          date: new Date(Date.now()).toLocaleString()
+        },
+      ]
+    }
+    },
       computed: {
         notesFilter () {
           let array = this.notes,
@@ -97,7 +100,8 @@ export default {
           let {
             title,
             descr,
-            impotCheck
+            impotCheck,
+            editable
           } = this.note
           if (title === '') {
             this.message = 'title не может быть пустым'
@@ -107,6 +111,7 @@ export default {
             title,
             descr,
             impotCheck,
+            editable: false,
             date: new Date(Date.now()).toLocaleString()
           })
           this.message = null
