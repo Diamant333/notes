@@ -10,7 +10,6 @@
                         @keyup.esc= "note.editable=false; $emit('update'); note.title=titletemp;"
                         v-focus
                         >
-                        <textarea name="" id="" cols="30" rows="10" v-model="note.descr"></textarea>
 
                         <div v-else>
                             <p @click="note.editable=true; titletemp=note.title;">{{ note.title }}</p>
